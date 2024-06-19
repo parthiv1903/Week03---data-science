@@ -1,0 +1,59 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+file_path = '/content/sales.csv'
+sales_data = pd.read_csv(file_path)
+
+# Line Chart: Monthly sales of each product
+plt.figure(figsize=(12, 8))
+
+for column in sales_data.columns[1:7]:
+    plt.plot(sales_data['month_number'], sales_data[column], marker='o', label=column)
+
+plt.title('Monthly Sales of Each Product')
+plt.xlabel('Month Number')
+plt.ylabel('Sales')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Bar Chart: Total sales of each product
+total_sales = sales_data.iloc[:, 1:7].sum()
+
+plt.figure(figsize=(12, 8))
+total_sales.plot(kind='bar', color=['blue', 'orange', 'green', 'red', 'purple', 'brown'])
+
+plt.title('Total Sales of Each Product')
+plt.xlabel('Product')
+plt.ylabel('Total Sales')
+plt.grid(axis='y')
+plt.show()
+
+# Pie Chart: Proportion of total sales by product
+plt.figure(figsize=(10, 8))
+total_sales.plot(kind='pie', autopct='%1.1f%%', startangle=140, colors=['blue', 'orange', 'green', 'red', 'purple', 'brown'])
+
+plt.title('Proportion of Total Sales by Product')
+plt.ylabel('')
+plt.show()  
+
+# Scatter Plot: Relationship between total units sold and total profit
+plt.figure(figsize=(10, 6))
+plt.scatter(sales_data['total_units'], sales_data['total_profit'], color='red')
+
+plt.title('Relationship between Total Units Sold and Total Profit')
+plt.xlabel('Total Units Sold')
+plt.ylabel('Total Profit')
+plt.grid(True)
+plt.show()
+
+# Histogram: Distribution of total profit
+plt.figure(figsize=(10, 6))
+plt.hist(sales_data['total_profit'], bins=5, color='green', edgecolor='black')
+
+plt.title('Distribution of Total Profit')
+plt.xlabel('Total Profit')
+plt.ylabel('Frequency')
+plt.grid(True)
+plt.show()  
